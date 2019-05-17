@@ -144,7 +144,7 @@ public class Snake extends TimerTask implements KeyListener {
             headX = newHead[0];    // Convenience variables for new head x and y
             headY = newHead[1];
 
-            if ((headX < 0 || headX > xSquares) || (headY < 0 || headY > ySquares)) {   // Head outside board? Snake hit wall, game over
+            if ((headX < 0 || headX >= xSquares) || (headY < 0 || headY >= ySquares)) {   // Head outside board? Snake hit wall, game over
                 gameOver = clockTicksToRestart;
                 return;
             }
