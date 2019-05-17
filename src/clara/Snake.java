@@ -13,7 +13,7 @@ public class Snake extends TimerTask implements KeyListener {
     private int height = 300; private int width = 400;   //pixels
     private int squareSize = 50;
     
-    private int speed = 300;   // 300 = update every 300 ms.  Larger number = slower game
+    private int speed = 300;   // Number of ms between updates.  Larger number = slower game
     
     private int xSquares = width / squareSize;
     private int ySquares = height / squareSize;
@@ -29,8 +29,8 @@ public class Snake extends TimerTask implements KeyListener {
     */
     private int gameOver = 0;
     
-    private int clockTicksToRestart = 6;    //How many ticks after game over before restart?
-    private int youWinClockTicksToRestart = 12;    // Wait a little longer if user wins the game, to allow time to display 'you win' message
+    private int clockTicksToRestart = 10;    //How many ticks after game over before restart?
+    private int youWinClockTicksToRestart = 15;    // Wait a little longer if user wins the game, to allow time to display 'you win' message
     
     // List of squares the snake body is in
     private LinkedList<int[]> snake = new LinkedList<int[]>();
@@ -46,7 +46,6 @@ public class Snake extends TimerTask implements KeyListener {
 
     
     public Snake() {
-
         SwingUtilities.invokeLater(new Runnable() {  //An anonymous (un-named) inner class
             @Override
             public void run() {
@@ -80,7 +79,7 @@ public class Snake extends TimerTask implements KeyListener {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, width, height);
 
-            if (gameOver > 6) {            // If gameOver indicates game is won, display message
+            if (gameOver > clockTicksToRestart) {  // If gameOver indicates game is won, display message
                 g.setColor(Color.GREEN);
                 g.drawString(">-o~~~~~~~~~~~~~  SNAKE  ~~~~~~~~~~~~~o-<", 50, 50);    //  "art"
                 g.drawString("!!!! YOU WON !!! score: " + score, 100, 100);
@@ -91,7 +90,7 @@ public class Snake extends TimerTask implements KeyListener {
                 g.drawString(">-o~~~~~~~~~~~~~  SNAKE  ~~~~~~~~~~~~~o-<", 50, 50);
 
                 g.drawString("GAME OVER score: " + score, 120, 100);
-                g.drawString("try again in " + (gameOver + 1) / 2 + "...", 120,150);
+                g.drawString("playing again soon... " + (gameOver) + "...", 120, 150);  // Updates every clock tick so not seconds. Would need some more math or another timer to display seconds.
                 g.drawString("press q to quit", 120, 200);
             }
 
